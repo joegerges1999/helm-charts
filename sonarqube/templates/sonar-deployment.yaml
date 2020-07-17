@@ -1,0 +1,133 @@
+{{- if .Values.deployment.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sonarqube
+    team: {{ .Values.team }}
+  name: {{ .Values.team }}-sonarqube-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: sonarqube
+      team: {{ .Values.team }}
+  template:
+    metadata:
+      labels:
+        app: sonarqube
+        team: {{ .Values.team }}
+    spec:
+      terminationGracePeriodSeconds: 15
+      initContainers:
+      - name: fix-the-volume-permission
+        image: busybox
+        command:
+        - sh
+        - -c
+        - chmod -R 777 /opt/sonarqube/extensions
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: sonar-extensions
+          mountPath: /opt/sonarqube/extensions
+      - name: fix-the-volume-permission1
+        image: busybox
+        command:
+        - sh
+        - -c
+        - chmod -R 777 /opt/sonarqube/data
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: sonar-data
+          mountPath: /opt/sonarqube/data
+      - name: fix-the-volume-permission2
+        image: busybox
+        command:
+        - sh
+        - -c
+        - chmod -R 777 /opt/sonarqube/logs
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: sonar-data
+          mountPath: /opt/sonarqube/logs
+      - name: fix-the-volume-permission3
+        image: busybox
+        command:
+        - sh
+        - -c
+        - chmod -R 777 /opt/sonarqube/conf
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: sonar-data
+          mountPath: /opt/sonarqube/conf 
+      containers:
+        - name: sonardb
+          image: {{ .Values.db.image.name }}:{{ .Values.db.image.tag }}
+          ports:
+          - containerPort: {{ .Values.db.port }}
+          env:
+          - name: DB_NAME
+            value: {{ .Values.db.name }}
+          - name: POSTGRES_USER
+            value: {{ .Values.db.user }}
+          - name: POSTGRES_PASSWORD
+            value: {{ .Values.db.password }}
+          volumeMounts:
+          - mountPath: /var/lib/postgresql
+            name: postgresql
+          - mountPath: /var/lib/postgresql/data
+            name: postgresql-data
+        - name: sonarqube
+          image: {{ .Values.sonarqube.image.name }}:{{ .Values.sonarqube.image.tag }}
+          resources:
+            requests:
+              cpu: {{ .Values.requests.cpu }}
+              memory: {{ .Values.requests.memory }}
+            limits:
+              cpu: {{ .Values.limits.cpu }}
+              memory: {{ .Values.limits.memory }}
+          volumeMounts:
+          - mountPath: /opt/sonarqube/data/
+            name: sonar-data
+          - mountPath: /opt/sonarqube/extensions/
+            name: sonar-extensions
+          - mountPath: /opt/sonarqube/logs/
+            name: sonar-logs
+          - mountPath: /opt/sonarqube/conf/
+            name: sonar-conf
+          env:
+          - name: SONARQUBE_JDBC_USERNAME
+            value: {{ .Values.db.user }}
+          - name: SONARQUBE_JDBC_URL
+            value: jdbc:postgresql://localhost:{{ .Values.db.port }}/{{ .Values.db.name }} 
+          - name: SONARQUBE_JDBC_PASSWORD
+            value: {{ .Values.db.password }}
+          - name: sonar.web.context
+            value: {{ .Values.sonarqube.webcontext }}
+          ports:
+          - containerPort: {{ .Values.sonarqube.port }}
+            protocol: TCP
+      volumes:
+      - name: sonar-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.team }}-sonarqube-data-pvc
+      - name: sonar-extensions
+        persistentVolumeClaim:
+          claimName: {{ .Values.team }}-sonarqube-extensions-pvc
+      - name: sonar-conf
+        persistentVolumeClaim:
+          claimName: {{ .Values.team }}-sonarqube-conf-pvc
+      - name: sonar-logs
+        persistentVolumeClaim:
+          claimName: {{ .Values.team }}-sonarqube-logs-pvc
+      - name: postgresql
+        persistentVolumeClaim:
+          claimName: {{ .Values.team }}-sonarqube-postgresql-pvc
+      - name: postgresql-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.team }}-sonarqube-postgresql-data-pvc
+{{- end }}

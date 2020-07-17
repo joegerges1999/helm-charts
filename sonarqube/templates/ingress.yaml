@@ -1,0 +1,20 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    labels:
+      app: sonarqube
+    name: ingress   
+spec:
+    rules:
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .name }}
+      http:
+        paths:
+        - path: {{ template "SonarQube.web.context" $ }}
+          backend:
+            serviceName: {{ .team }}-sonarqube-service 
+            servicePort: {{ template "SonarQube.service.port" $ }}
+    {{- end }}
+{{- end }}
+
