@@ -2,6 +2,8 @@ replicaCount: 1
 
 team: jgerges
 
+hostname: "jgerges"
+
 requests:
   cpu: 500m
   memory: 1024Mi
@@ -28,11 +30,6 @@ db:
 
 ingress:
   enabled: true
-  hosts:
-    - name: "jgerges"
-      team: "jgerges"
-    - name: "jgerges.fr.murex.com"
-      team: "jgerges-fr"
 
 service:
   enabled: true

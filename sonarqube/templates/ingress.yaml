@@ -4,17 +4,15 @@ kind: Ingress
 metadata:
     labels:
       app: sonarqube
-    name: ingress   
+    name: {{ .Values.team }}-sonarqube-ingress   
 spec:
     rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .name }}
+    - host: {{ .Values.hostname }}
       http:
         paths:
-        - path: {{ template "SonarQube.web.context" $ }}
+        - path: {{ .Values.sonarqube.webcontext }}
           backend:
-            serviceName: {{ .team }}-sonarqube-service 
-            servicePort: {{ template "SonarQube.service.port" $ }}
-    {{- end }}
+            serviceName: {{ .Values.team }}-sonarqube-service 
+            servicePort: {{ .Values.service.port }}
 {{- end }}
 
