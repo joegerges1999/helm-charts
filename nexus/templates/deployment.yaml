@@ -1,0 +1,38 @@
+{{- if .Values.deployment.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nexus
+    team: {{ .Values.team }}
+  name: {{ .Values.team }}-nexus-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: nexus
+      team: {{ .Values.team }}
+  template:
+    metadata:
+      labels:
+        app: nexus
+        team: {{ .Values.team }}
+    spec:
+      containers:
+        - name: nexus
+          image: {{ .Values.nexus.image.name }}:{{ .Values.nexus.image.tag }}
+          ports:
+          - containerPort: {{ .Values.nexus.port }}
+            protocol: TCP
+          env:
+          - name: NEXUS_CONTEXT
+            value: {{ .Values.nexus.webcontext }}
+          volumeMounts:
+          - mountPath: /nexus-data
+            name: nexus-data
+      volumes:
+      - name: nexus-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.team }}-nexus-pvc
+{{- end }}
+                                           

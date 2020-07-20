@@ -1,0 +1,30 @@
+replicaCount: 1
+
+team: jgerges
+
+hostname: "jgerges"
+
+requests:
+  cpu: 500m
+  memory: 1024Mi
+
+limits:
+  cpu: 2000m
+  memory: 2048Mi
+
+nexus:
+  image:
+    name: "sonatype/nexus3"
+    tag: "latest"
+  port: 8081
+  webcontext: nexus
+
+ingress:
+  enabled: true
+
+service:
+  enabled: true
+  port: 8081
+
+deployment:
+  enabled: true

@@ -1,0 +1,17 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    labels:
+      app: nexus
+    name: {{ .Values.team }}-nexus-ingress   
+spec:
+    rules:
+    - host: {{ .Values.hostname }}
+      http:
+        paths:
+        - path: /{{ .Values.nexus.webcontext }}
+          backend:
+            serviceName: {{ .Values.team }}-nexus-service 
+            servicePort: {{ .Values.service.port }}
+{{- end }}
