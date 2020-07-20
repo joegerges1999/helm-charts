@@ -3,52 +3,31 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: fitnesse
+    app: {{ .Values.app }}
     team: {{ .Values.team }}
-  name: {{ .Values.team }}-fitnesse-deployment
+  name: {{ .Values.team }}-{{ .Values.app }}-deployment
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: fitnesse
+      app: {{ .Values.app }}
       team: {{ .Values.team }}
   template:
     metadata:
       labels:
-        app: fitnesse
+        app: {{ .Values.app }}
         team: {{ .Values.team }}
     spec:
-      initContainers:
-      - name: adding-plugins-file-and-giving-access
-        image: busybox
-        command: 
-        - sh
-        - -c
-        - echo "ContextRoot = {{ .Values.fitnesse.webcontext }}" > /opt/fitnesse/plugins.properties
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /opt/fitnesse
-          name: fitnesse-data
-      - name: giving-access-to-data
-        image: busybox
-        command:
-        - sh
-        - -c
-        - chmod -R 777 /opt/fitnesse
-        volumeMounts:
-        - mountPath: /opt/fitnesse
-          name: fitnesse-data 
       containers:
         - name: fitnesse
           image: {{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
           ports:
           - containerPort: {{ .Values.fitnesse.port }}
           volumeMounts:
-          - mountPath: /opt/fitnesse
+          - mountPath: /opt/fitnesse/FitNesseRoot
             name: fitnesse-data
       volumes:
       - name: fitnesse-data
         persistentVolumeClaim:
-          claimName: {{ .Values.team }}-fitnesse-pvc
+          claimName: {{ .Values.team }}-{{ .Values.app }}-pvc
 {{- end }}
