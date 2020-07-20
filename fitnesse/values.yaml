@@ -1,0 +1,30 @@
+replicaCount: 1
+
+team: jgerges
+
+hostname: "jgerges"
+
+requests:
+  cpu: 500m
+  memory: 1024Mi
+
+limits:
+  cpu: 2000m
+  memory: 2048Mi
+
+fitnesse:
+  image:
+    name: "jgerges/fitnesse"
+    tag: "latest"
+  port: 9090
+  webcontext: fitnesse
+
+ingress:
+  enabled: true
+
+service:
+  enabled: true
+  port: 9090
+
+deployment:
+  enabled: true

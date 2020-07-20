@@ -1,0 +1,17 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    labels:
+      app: fitnesse
+    name: {{ .Values.team }}-fitnesse-ingress   
+spec:
+    rules:
+    - host: {{ .Values.hostname }}
+      http:
+        paths:
+        - path: /{{ .Values.fitnesse.webcontext }}
+          backend:
+            serviceName: {{ .Values.team }}-fitnesse-service 
+            servicePort: {{ .Values.service.port }}
+{{- end }}

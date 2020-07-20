@@ -3,16 +3,16 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: sonarqube
+    app: fitnesse
     team: {{ .Values.team }}
-  name: {{ .Values.team }}-sonarqube-service
+  name: {{ .Values.team }}-fitnesse-service
 spec:
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.sonarqube.port }}
-      name: sonarport
+      targetPort: {{ .Values.fitnesse.port }}
+      name: fitnesseport
   selector:
-    app: sonarqube
+    app: fitnesse
     team: {{ .Values.team }}
   type: LoadBalancer
 {{- end }}
