@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: dashboard
+  name: {{ .Values.team }}-dashboard-ingress
+spec:
+  rules:
+  - host: {{ .Values.hostname }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Values.team }}-dashboard-service
+          servicePort: {{ .Values.service.port }}
+ 

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.team }}-dashboard-deployment
+  labels:
+    app: dashboard
+    team: {{ .Values.team }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard
+      team: {{ .Values.team }}
+  template:
+    metadata:
+      labels:
+        app: dashboard
+        team: {{ .Values.team }}
+    spec:
+      containers:
+        - name: dashboard
+          image: {{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
+          resources:
+            requests:
+              cpu: {{ .Values.requests.cpu }}
+              memory: {{ .Values.requests.memory }}
+            limits:
+              cpu: {{ .Values.limits.cpu }}
+              memory: {{ .Values.limits.memory }}
+          

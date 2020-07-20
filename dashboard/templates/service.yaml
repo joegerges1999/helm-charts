@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.team }}-dashboard-service
+  labels:
+    app: dashboard
+    team: {{ .Values.team }}
+spec:
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.dashboard.port }}
+      name: dashboardport
+  selector:
+    app: dashboard
+    team: {{ .Values.team }}
+  type: LoadBalancer

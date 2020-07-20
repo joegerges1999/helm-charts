@@ -1,0 +1,20 @@
+team: jgerges
+
+hostname: "jgerges"
+
+requests:
+  cpu: 125m
+  memory: 20Mi
+
+limits:
+  cpu: 125m
+  memory: 20Mi
+
+dashboard:
+  image: 
+    name: jgerges/dashboard
+    tag: latest
+  port: 5000
+
+service:
+  port: 5000
