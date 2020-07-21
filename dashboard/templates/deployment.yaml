@@ -18,10 +18,10 @@ spec:
         team: {{ .Values.team }}
     spec:
       imagePullSecrets:
-      - name: docker-all
+      - name: {{ .Values.imagePullSecrets }}
       containers:
         - name: dashboard
-          image: docker-all.nexus.murex.com/{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
+          image: {{ .Values.dockerRegistry }}/{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
           resources:
             requests:
               cpu: {{ .Values.requests.cpu }}

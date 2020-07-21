@@ -18,9 +18,11 @@ spec:
         app: nexus
         team: {{ .Values.team }}
     spec:
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecrets }}
       containers:
         - name: nexus
-          image: {{ .Values.nexus.image.name }}:{{ .Values.nexus.image.tag }}
+          image: {{ .Values.dockerRegistry }}/{{ .Values.nexus.image.name }}:{{ .Values.nexus.image.tag }}
           ports:
           - containerPort: {{ .Values.nexus.port }}
             protocol: TCP
