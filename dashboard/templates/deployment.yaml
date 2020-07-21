@@ -17,6 +17,8 @@ spec:
         app: dashboard
         team: {{ .Values.team }}
     spec:
+      imagePullSecrets:
+      - name: docker-all
       containers:
         - name: dashboard
           image: {{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}

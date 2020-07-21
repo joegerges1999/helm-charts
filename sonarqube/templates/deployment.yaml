@@ -107,7 +107,7 @@ spec:
           - name: SONARQUBE_JDBC_PASSWORD
             value: {{ .Values.db.password }}
           - name: sonar.web.context
-            value: {{ .Values.sonarqube.webcontext }}
+            value: /{{ .Values.sonarqube.webcontext }}
           ports:
           - containerPort: {{ .Values.sonarqube.port }}
             protocol: TCP

@@ -4,11 +4,11 @@ hostname: "jgerges"
 
 requests:
   cpu: 125m
-  memory: 20Mi
+  memory: 1024Mi
 
 limits:
   cpu: 125m
-  memory: 20Mi
+  memory: 1024Mi
 
 dashboard:
   image: 

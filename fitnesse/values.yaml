@@ -16,7 +16,7 @@ limits:
 
 fitnesse:
   image:
-    name: "jgerges/newfit"
+    name: "jgerges/fitnesse"
     tag: "latest"
   port: 9090
   webcontext: fitnesse
