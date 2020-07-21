@@ -17,6 +17,7 @@ spec:
         app: dashboard
         team: {{ .Values.team }}
     spec:
+      imagePullPolicy: always
       imagePullSecrets:
       - name: {{ .Values.imagePullSecrets }}
       containers:
