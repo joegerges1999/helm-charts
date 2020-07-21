@@ -6,9 +6,7 @@ metadata:
     app: {{ .Values.app }}
     team: {{ .Values.team }}
   name: {{ .Values.team }}-{{ .Values.app }}-deployment
-spec:
-  imagePullSecrets: 
-  - name: {{ .Values.imagePullSecrets }}
+spec: 
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
@@ -20,6 +18,8 @@ spec:
         app: {{ .Values.app }}
         team: {{ .Values.team }}
     spec:
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecrets }}
       containers:
         - name: fitnesse
           image: {{ .Values.dockerRegistry }}/{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
