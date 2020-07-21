@@ -21,7 +21,7 @@ spec:
       - name: docker-all
       containers:
         - name: dashboard
-          image: {{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
+          image: docker-all.nexus.murex.com/{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
           resources:
             requests:
               cpu: {{ .Values.requests.cpu }}
