@@ -4,6 +4,10 @@ team: jgerges
 
 hostname: "jgerges"
 
+imagePullSecrets: docker-all
+
+dockerRegistry: docker-all.nexus.murex.com
+
 app: fitnesse
 
 requests:
