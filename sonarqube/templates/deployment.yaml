@@ -21,7 +21,7 @@ spec:
       terminationGracePeriodSeconds: 15
       initContainers:
       - name: fix-the-volume-permission
-        image: busybox
+        image: docker-all.nexus.murex.com/busybox
         command:
         - sh
         - -c
@@ -32,7 +32,7 @@ spec:
         - name: sonar-extensions
           mountPath: /opt/sonarqube/extensions
       - name: fix-the-volume-permission1
-        image: busybox
+        image: docker-all.nexus.murex.com/busybox
         command:
         - sh
         - -c
@@ -43,7 +43,7 @@ spec:
         - name: sonar-data
           mountPath: /opt/sonarqube/data
       - name: fix-the-volume-permission2
-        image: busybox
+        image: docker-all.nexus.murex.com/busybox
         command:
         - sh
         - -c
@@ -54,7 +54,7 @@ spec:
         - name: sonar-data
           mountPath: /opt/sonarqube/logs
       - name: fix-the-volume-permission3
-        image: busybox
+        image: docker-all.nexus.murex.com/busybox
         command:
         - sh
         - -c
@@ -66,7 +66,7 @@ spec:
           mountPath: /opt/sonarqube/conf 
       containers:
         - name: sonardb
-          image: {{ .Values.db.image.name }}:{{ .Values.db.image.tag }}
+          image: docker-all.nexus.murex.com/{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}
           ports:
           - containerPort: {{ .Values.db.port }}
           env:
@@ -82,7 +82,7 @@ spec:
           - mountPath: /var/lib/postgresql/data
             name: postgresql-data
         - name: sonarqube
-          image: {{ .Values.sonarqube.image.name }}:{{ .Values.sonarqube.image.tag }}
+          image: docker-all.nexus.murex.com/{{ .Values.sonarqube.image.name }}:{{ .Values.sonarqube.image.tag }}
           resources:
             requests:
               cpu: {{ .Values.requests.cpu }}
