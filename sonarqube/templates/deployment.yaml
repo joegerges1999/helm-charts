@@ -23,12 +23,12 @@ spec:
       terminationGracePeriodSeconds: 15
       initContainers:
       - name: sysctl
-        image: {{ .Values.dockerRegistry }}/busybox
+        image: {{ .Values.dockerRegistry }}busybox
         command: ['sysctl', '-w', 'vm.max_map_count=262144']
         securityContext:
           privileged: true
       - name: fix-the-volume-permission
-        image: {{ .Values.dockerRegistry }}/busybox
+        image: {{ .Values.dockerRegistry }}busybox
         command:
         - sh
         - -c
@@ -39,7 +39,7 @@ spec:
         - name: sonar-extensions
           mountPath: /opt/sonarqube/extensions
       - name: fix-the-volume-permission1
-        image: {{ .Values.dockerRegistry }}/busybox
+        image: {{ .Values.dockerRegistry }}busybox
         command:
         - sh
         - -c
@@ -50,7 +50,7 @@ spec:
         - name: sonar-data
           mountPath: /opt/sonarqube/data
       - name: fix-the-volume-permission2
-        image: {{ .Values.dockerRegistry }}/busybox
+        image: {{ .Values.dockerRegistry }}busybox
         command:
         - sh
         - -c
@@ -61,7 +61,7 @@ spec:
         - name: sonar-data
           mountPath: /opt/sonarqube/logs
       - name: fix-the-volume-permission3
-        image: {{ .Values.dockerRegistry }}/busybox
+        image: {{ .Values.dockerRegistry }}busybox
         command:
         - sh
         - -c
@@ -73,7 +73,7 @@ spec:
           mountPath: /opt/sonarqube/conf
       {{- if .Values.disablePlugins }}
       - name: removing-unsupported-plugins
-        image: {{ .Values.dockerRegistry }}/busybox
+        image: {{ .Values.dockerRegistry }}busybox
         command:
         - sh
         - -c
@@ -88,7 +88,7 @@ spec:
       {{- end }}
       containers:
         - name: sonardb
-          image: {{ .Values.dockerRegistry }}/{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}
+          image: {{ .Values.dockerRegistry }}{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}
           ports:
           - containerPort: {{ .Values.db.port }}
           env:
@@ -104,7 +104,7 @@ spec:
           - mountPath: /var/lib/postgresql/data
             name: postgresql-data
         - name: sonarqube
-          image: {{ .Values.dockerRegistry }}/{{ .Values.sonarqube.image.name }}:{{ .Values.sonarqube.image.tag }}
+          image: {{ .Values.dockerRegistry }}{{ .Values.sonarqube.image.name }}:{{ .Values.sonarqube.image.tag }}
           resources:
             requests:
               cpu: {{ .Values.requests.cpu }}
@@ -130,6 +130,10 @@ spec:
             value: {{ .Values.db.password }}
           - name: sonar.web.context
             value: /{{ .Values.sonarqube.webcontext }}
+          - name: http.proxyPort
+            value: {{ .Values.httpProxyPort | quote }}
+          - name: http.proxyHost
+            value: {{ .Values.httpProxyHost }} 
           ports:
           - containerPort: {{ .Values.sonarqube.port }}
             protocol: TCP

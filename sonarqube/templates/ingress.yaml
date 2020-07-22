@@ -14,5 +14,9 @@ spec:
           backend:
             serviceName: {{ .Values.team }}-sonarqube-service 
             servicePort: {{ .Values.service.port }}
+        - path: {{ printf "/%s/*" .Values.sonarqube.webcontext }}
+          backend:
+            serviceName: {{ .Values.team }}-sonarqube-service
+            servicePort: {{ .Values.service.port }}
 {{- end }}
 
