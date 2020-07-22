@@ -61,7 +61,7 @@ spec:
         - name: sonar-data
           mountPath: /opt/sonarqube/logs
       - name: fix-the-volume-permission3
-        image: {{ .Values.dockerRegistry }}busybox
+        image: {{ $.Values.dockerRegistry }}busybox
         command:
         - sh
         - -c
