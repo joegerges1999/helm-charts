@@ -8,10 +8,6 @@ imagePullSecrets: "docker-all"
 
 dockerRegistry: docker-all.nexus.murex.com
 
-httpsProxyHost: "istestkubmaster1"
-httpsProxyPort: "80"
-
-
 requests:
   cpu: 500m
   memory: 1024Mi
