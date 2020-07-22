@@ -8,6 +8,10 @@ imagePullSecrets: "docker-all"
 
 dockerRegistry: docker-all.nexus.murex.com
 
+httpProxyHost: 10.25.57.100
+httpProxyPort: 80
+
+
 requests:
   cpu: 500m
   memory: 1024Mi

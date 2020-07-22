@@ -22,6 +22,11 @@ spec:
       - name: {{ .Values.imagePullSecrets }}
       terminationGracePeriodSeconds: 15
       initContainers:
+      - name: sysctl
+        image: {{ .Values.dockerRegistry }}/busybox
+        command: ['sysctl', '-w', 'vm.max_map_count=262144']
+        securityContext:
+        priviledged: true
       - name: fix-the-volume-permission
         image: {{ .Values.dockerRegistry }}/busybox
         command:
@@ -125,6 +130,10 @@ spec:
             value: {{ .Values.db.password }}
           - name: sonar.web.context
             value: /{{ .Values.sonarqube.webcontext }}
+          - name: http.proxyhHost
+            value: {{ .Values.httpProxyHost }}
+          - name: http.proxyPort
+            value: {{ .Values.httpProxyPort }}
           ports:
           - containerPort: {{ .Values.sonarqube.port }}
             protocol: TCP
