@@ -32,6 +32,8 @@ db:
   user: sonar
   password: sonar
 
+disablePlugins: true
+
 regex:
   - version: "8.3.*"
     pattern: .*/sonar-\(auth-github\|auth-gitlab\|ldap\|auth-saml\|cnes\|ha\|branch\|developer\|license\|python\).*jar

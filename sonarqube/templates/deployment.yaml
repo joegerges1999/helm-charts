@@ -66,6 +66,7 @@ spec:
         volumeMounts:
         - name: sonar-data
           mountPath: /opt/sonarqube/conf
+      {{- if .Values.disablePlugins }}
       - name: removing-unsupported-plugins
         image: {{ .Values.dockerRegistry }}/busybox
         command:
@@ -79,6 +80,7 @@ spec:
           mountPath: /opt/sonarqube/extensions 
         {{- end }}
         {{- end }}
+      {{- end }}
       containers:
         - name: sonardb
           image: {{ .Values.dockerRegistry }}/{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}
