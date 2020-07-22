@@ -8,8 +8,8 @@ imagePullSecrets: "docker-all"
 
 dockerRegistry: docker-all.nexus.murex.com
 
-httpProxyHost: "istestkubmaster1.fr.murex.com"
-httpProxyPort: "80"
+httpsProxyHost: "istestkubmaster1"
+httpsProxyPort: "80"
 
 
 requests:
