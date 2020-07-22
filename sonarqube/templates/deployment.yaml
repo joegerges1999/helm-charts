@@ -72,19 +72,19 @@ spec:
         - name: sonar-data
           mountPath: /opt/sonarqube/conf
       {{- if .Values.disablePlugins }}
+      {{- range .Values.regex }}
+      {{- if regexMatch .version $.Values.sonarqube.image.tag }}
       - name: removing-unsupported-plugins
         image: {{ .Values.dockerRegistry }}busybox
         command:
         - sh
         - -c
-        {{- range .Values.regex }}
-        {{- if regexMatch .version $.Values.sonarqube.image.tag }}
         - rm -rf $(find /opt/sonarqube/extensions/plugins -regex '{{ .pattern }}' )
         volumeMounts:
         - name: sonar-extensions
           mountPath: /opt/sonarqube/extensions 
-        {{- end }}
-        {{- end }}
+      {{- end }}
+      {{- end }}
       {{- end }}
       containers:
         - name: sonardb
