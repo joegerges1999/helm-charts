@@ -6,10 +6,6 @@ metadata:
       app: sonarqube
     name: {{ .Values.team }}-sonarqube-ingress   
 spec:
-    tls:
-    - hosts:
-      - {{ .Values.hostname }}
-      secretName: cert
     rules:
     - host: {{ .Values.hostname }}
       http:
