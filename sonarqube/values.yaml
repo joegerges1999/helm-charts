@@ -18,7 +18,7 @@ limits:
 
 sonarqube:
   image:
-    name: sonarqube
+    name: "sonarqube"
     tag: "8.3.1-community"
   port: 9000
   webcontext: sonar
@@ -31,6 +31,14 @@ db:
   name: sonar
   user: sonar
   password: sonar
+
+regex:
+  - version: "8.3.*"
+    pattern: .*/sonar-\(auth-github\|auth-gitlab\|ldap\|auth-saml\|cnes\|ha\|branch\|developer\|license\|python\).*jar
+  - version: "8.1.*|8.2.*"
+    pattern: .*/sonar-\(auth-github\|auth-gitlab\|ldap\|auth-saml\|ha\|branch\|developer\|license\|python\).*jar
+  - version: "7.9.*"
+    pattern: .*/sonar-\(ha\|branch\|developer\|license\|python\).*jar
 
 ingress:
   enabled: true
