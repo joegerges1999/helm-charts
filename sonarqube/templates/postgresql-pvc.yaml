@@ -9,7 +9,7 @@ metadata:
     team: {{ .Values.team }}
 spec:
   accessModes:
-    - {{ .Values.pvc.accessMode }}
+    - {{ .Values.persistance.accessMode }}
   resources:
     requests:
       storage: {{ .Values.persistance.dbStorage }}
@@ -23,7 +23,7 @@ metadata:
     name: {{ .Values.team }}-sonarqube-postgresql-data-pvc
 spec:
     accessModes:
-      - {{ .Values.pvc.accessMode }}
+      - {{ .Values.persistance.accessMode }}
     resources:
       requests:
         storage: {{ .Values.persistance.dbDataStorage }}

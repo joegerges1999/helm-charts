@@ -9,7 +9,7 @@ metadata:
   name: {{ .Values.team }}-sonarqube-data-pvc
 spec:
   accessModes:
-    - {{ .Values.pvc.accessMode }}
+    - {{ .Values.persistance.accessMode }}
   resources:
     requests:
       storage: {{ .Values.persistance.sqDataStorage }}
@@ -23,7 +23,7 @@ metadata:
     name: {{ .Values.team }}-sonarqube-extensions-pvc
 spec:
   accessModes:
-    - {{ .Values.pvc.accessMode }}
+    - {{ .Values.persistance.accessMode }}
   resources:
     requests:
       storage: {{ .Values.persistance.sqExtensionsStorage }}
@@ -37,7 +37,7 @@ metadata:
   name: {{ .Values.team }}-sonarqube-logs-pvc
 spec:
   accessModes:
-    - {{ .Values.pvc.accessMode }}
+    - {{ .Values.persistance.accessMode }}
   resources:
     requests:
       storage: {{ .Values.persistance.sqLogsStorage }}

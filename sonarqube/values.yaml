@@ -63,6 +63,7 @@ pvc:
 
 persistance:
   enabled: true
+  accessMode: ReadWriteMany
   dbStorage: 5Gi
   dbDataStorage: 5Gi
   sqDataStorage: 5Gi
