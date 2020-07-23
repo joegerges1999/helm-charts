@@ -26,6 +26,15 @@ spec:
           ports:
           - containerPort: {{ .Values.nexus.port }}
             protocol: TCP
+          {{- if .Values.cappedRequests.enabled }}
+          resources:
+            requests:
+              cpu: {{ .Values.cappedRequests.requests.cpu }}
+              memory: {{ .Values.cappedRequests.requests.memory }}
+            limits:
+              cpu: {{ .Values.cappedRequests.limits.cpu }}
+              memory: {{ .Values.cappedRequests.limits.memory }}
+          {{- end }}
           env:
           - name: NEXUS_CONTEXT
             value: {{ .Values.nexus.webcontext }}

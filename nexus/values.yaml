@@ -8,13 +8,17 @@ imagePullSecrets: "docker-all"
 
 dockerRegistry: "docker-all.nexus.murex.com"
 
-requests:
-  cpu: 500m
-  memory: 1024Mi
+requestsCap:
+  enabled: false
 
-limits:
-  cpu: 2000m
-  memory: 2048Mi
+cappedRequests:
+  enabled: false 
+  requests:
+    cpu: 4000m
+    memory: 4096Mi
+  limits:
+    cpu: 4000m
+    memory: 4096Mi
 
 nexus:
   image:
