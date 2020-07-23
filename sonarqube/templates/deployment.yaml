@@ -130,10 +130,10 @@ spec:
             value: {{ .Values.db.password }}
           - name: sonar.web.context
             value: /{{ .Values.sonarqube.webcontext }}
-          - name: http.proxyPort
-            value: {{ .Values.httpProxyPort | quote }}
-          - name: http.proxyHost
-            value: {{ .Values.httpProxyHost }} 
+#          - name: http.proxyPort
+#            value: {{ .Values.httpProxyPort | quote }}
+#          - name: http.proxyHost
+#            value: {{ .Values.httpProxyHost }} 
           ports:
           - containerPort: {{ .Values.sonarqube.port }}
             protocol: TCP

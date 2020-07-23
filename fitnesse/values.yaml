@@ -6,7 +6,7 @@ hostname: "jgerges"
 
 imagePullSecrets: "docker-all"
 
-dockerRegistry: "docker-all.nexus.murex.com"
+dockerRegistry: "docker-all.nexus.murex.com/"
 
 app: fitnesse
 
@@ -25,8 +25,7 @@ fitnesse:
   port: 9090
   webcontext: fitnesse
 
-standalonejar:
-  release: 20180127
+release: 20180127
 
 ingress:
   enabled: true

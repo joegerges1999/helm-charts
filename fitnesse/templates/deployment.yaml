@@ -22,9 +22,12 @@ spec:
       - name: {{ .Values.imagePullSecrets }}
       containers:
         - name: fitnesse
-          image: {{ .Values.dockerRegistry }}/{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
+          image: {{ .Values.dockerRegistry }}{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
           ports:
           - containerPort: {{ .Values.fitnesse.port }}
+          env:
+          - name: FNREL
+            value: {{ .Values.release | quote }}
           volumeMounts:
           - mountPath: /opt/fitnesse/FitNesseRoot
             name: fitnesse-data
