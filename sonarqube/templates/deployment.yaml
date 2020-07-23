@@ -27,50 +27,24 @@ spec:
         command: ['sysctl', '-w', 'vm.max_map_count=262144']
         securityContext:
           privileged: true
+      {{- if .Values.persistance.enabled }}
       - name: fix-the-volume-permission
         image: {{ .Values.dockerRegistry }}busybox
         command:
         - sh
         - -c
-        - chmod -R 777 /opt/sonarqube/extensions
+        - chmod -R 777 /opt/sonarqube/extensions /opt/sonarqube/conf /opt/sonarqube/logs /opt/sonarqube/data
         securityContext:
           privileged: true
         volumeMounts:
         - name: sonar-extensions
           mountPath: /opt/sonarqube/extensions
-      - name: fix-the-volume-permission1
-        image: {{ .Values.dockerRegistry }}busybox
-        command:
-        - sh
-        - -c
-        - chmod -R 777 /opt/sonarqube/data
-        securityContext:
-          privileged: true
-        volumeMounts:
         - name: sonar-data
           mountPath: /opt/sonarqube/data
-      - name: fix-the-volume-permission2
-        image: {{ .Values.dockerRegistry }}busybox
-        command:
-        - sh
-        - -c
-        - chmod -R 777 /opt/sonarqube/logs
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - name: sonar-data
-          mountPath: /opt/sonarqube/logs
-      - name: fix-the-volume-permission3
-        image: {{ .Values.dockerRegistry }}busybox
-        command:
-        - sh
-        - -c
-        - chmod -R 777 /opt/sonarqube/conf
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - name: sonar-data
+        - name: sonar-conf
           mountPath: /opt/sonarqube/conf
+        - name: sonar-logs
+          mountPath: /opt/sonarqube/logs
       {{- if .Values.disablePlugins }}
       {{- range .Values.regex }}
       {{- if regexMatch .version $.Values.sonarqube.image.tag }}
@@ -86,6 +60,7 @@ spec:
       {{- end }}
       {{- end }}
       {{- end }}
+      {{- end }}
       containers:
         - name: sonardb
           image: {{ .Values.dockerRegistry }}{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}
@@ -98,20 +73,25 @@ spec:
             value: {{ .Values.db.user }}
           - name: POSTGRES_PASSWORD
             value: {{ .Values.db.password }}
+          {{- if .Values.persistance.enabled }}
           volumeMounts:
           - mountPath: /var/lib/postgresql
             name: postgresql
           - mountPath: /var/lib/postgresql/data
             name: postgresql-data
+          {{- end }}
         - name: sonarqube
           image: {{ .Values.dockerRegistry }}{{ .Values.sonarqube.image.name }}:{{ .Values.sonarqube.image.tag }}
+          {{- if .Values.cappedRequests.enabled }}
           resources:
             requests:
-              cpu: {{ .Values.requests.cpu }}
-              memory: {{ .Values.requests.memory }}
+              cpu: {{ .Values.cappedRequests.requests.cpu }}
+              memory: {{ .Values.cappedRequests.requests.memory }}
             limits:
-              cpu: {{ .Values.limits.cpu }}
-              memory: {{ .Values.limits.memory }}
+              cpu: {{ .Values.cappedRequests.limits.cpu }}
+              memory: {{ .Values.cappedRequests.limits.memory }}
+          {{- end }}
+          {{- if .Values.persistance.enabled }}
           volumeMounts:
           - mountPath: /opt/sonarqube/data/
             name: sonar-data
@@ -121,6 +101,7 @@ spec:
             name: sonar-logs
           - mountPath: /opt/sonarqube/conf/
             name: sonar-conf
+          {{- end }}
           env:
           - name: SONARQUBE_JDBC_USERNAME
             value: {{ .Values.db.user }}
@@ -130,13 +111,24 @@ spec:
             value: {{ .Values.db.password }}
           - name: sonar.web.context
             value: /{{ .Values.sonarqube.webcontext }}
-#          - name: http.proxyPort
-#            value: {{ .Values.httpProxyPort | quote }}
-#          - name: http.proxyHost
-#            value: {{ .Values.httpProxyHost }} 
+          {{- if .Values.sonarqube.proxy.enabled }}
+          - name: http.proxyHost
+            value: {{ .Values.sonarqube.http.proxyHort }}
+          - name: http.proxyPort
+            value: {{ .Values.sonarqube.http.proxyPort | quote }} 
+          - name: https.proxyPort
+            value: {{ .Values.sonarqube.https.proxyHost }}
+          - name: https.proxyPort
+            value: {{ .Values.sonarqube.https.proxyPort | quote }}
+          {{- end }}
+          {{- range .Values.env }}
+          - name: {{ .name }}
+            value: {{ .value | quote}}
+          {{- end }}
           ports:
           - containerPort: {{ .Values.sonarqube.port }}
             protocol: TCP
+      {{- if .Values.persistance.enabled }}
       volumes:
       - name: sonar-data
         persistentVolumeClaim:
@@ -156,4 +148,5 @@ spec:
       - name: postgresql-data
         persistentVolumeClaim:
           claimName: {{ .Values.team }}-sonarqube-postgresql-data-pvc
+      {{- end }}
 {{- end }}

@@ -1,3 +1,5 @@
+{{- if .Values.pvc.enabled -}}
+{{- if .Values.persistance.enabled -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -7,10 +9,10 @@ metadata:
   name: {{ .Values.team }}-sonarqube-data-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.pvc.accessMode }}
   resources:
     requests:
-      storage: 2Gi
+      storage: {{ .Values.persistance.sqDataStorage }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -21,10 +23,10 @@ metadata:
     name: {{ .Values.team }}-sonarqube-extensions-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.pvc.accessMode }}
   resources:
     requests:
-      storage: 2Gi
+      storage: {{ .Values.persistance.sqExtensionsStorage }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -35,10 +37,10 @@ metadata:
   name: {{ .Values.team }}-sonarqube-logs-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.pvc.accessMode }}
   resources:
     requests:
-      storage: 2Gi
+      storage: {{ .Values.persistance.sqLogsStorage }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -49,8 +51,9 @@ metadata:
   name: {{ .Values.team }}-sonarqube-conf-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.pvc.accessMode }}
   resources:
     requests:
-      storage: 2Gi
-    
+      storage: {{ .Values.persistance.sqConfStorage }}
+{{- end }}    
+{{- end }}
