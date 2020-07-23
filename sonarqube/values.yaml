@@ -30,7 +30,7 @@ sonarqube:
     name: "sonarqube"
     tag: "8.4.1-community"
   port: 9000
-  webcontext: sonar
+  webcontext: ""
 
 db:
   image:
