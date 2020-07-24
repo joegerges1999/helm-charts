@@ -22,6 +22,16 @@ dashboard:
     tag: "2.0"
   port: 5000
 
+probes:
+  enabled: true
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodsSeconds: 30
+  readinessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    failureThreshold: 6
+
 service:
   enabled: true
   port: 5000

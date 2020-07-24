@@ -25,6 +25,21 @@ spec:
           image: {{ .Values.dockerRegistry }}{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
           ports:
           - containerPort: {{ .Values.fitnesse.port }}
+          {{- if .Values.probes.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /{{ .Values.fitnesse.webcontext }}
+              port: {{ .Values.fitnesse.port }}
+            initialDelaySeconds: {{ .Values.probes.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds }}
+          readinessProbe:
+            httpGet:
+              path: /{{ .Values.fitnesse.webcontext }}
+              port: {{ .Values.fitnesse.port }}
+            initialDelaySeconds: {{ .Values.probes.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.probes.readinessProbe.failureThreshold }}
+          {{- end }}
           env:
           - name: FNREL
             value: {{ .Values.release | quote }}

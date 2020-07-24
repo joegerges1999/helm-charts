@@ -31,4 +31,19 @@ spec:
             limits:
               cpu: {{ .Values.limits.cpu }}
               memory: {{ .Values.limits.memory }}
+              {{- if .Values.probes.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.fitnesse.port }}
+            initialDelaySeconds: {{ .Values.probes.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.fitnesse.port }}
+            initialDelaySeconds: {{ .Values.probes.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.probes.readinessProbe.failureThreshold }}
+          {{- end }}
 {{- end }}

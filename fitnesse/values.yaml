@@ -25,6 +25,16 @@ fitnesse:
   port: 9090
   webcontext: fitnesse
 
+probes:
+  enabled: true
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodsSeconds: 30
+  readinessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    failureThreshold: 6
+    
 release: 20180127
 
 ingress:

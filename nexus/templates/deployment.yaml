@@ -35,6 +35,21 @@ spec:
               cpu: {{ .Values.cappedRequests.limits.cpu }}
               memory: {{ .Values.cappedRequests.limits.memory }}
           {{- end }}
+          {{- if .Values.probes.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /{{ .Values.nexus.webcontext }}
+              port: {{ .Values.nexus.port }}
+            initialDelaySeconds: {{ .Values.probes.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds }}
+          readinessProbe:
+            httpGet:
+              path: /{{ .Values.nexus.webcontext }}
+              port: {{ .Values.nexus.port }}
+            initialDelaySeconds: {{ .Values.probes.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.probes.readinessProbe.failureThreshold }}
+          {{- end }}
           env:
           - name: NEXUS_CONTEXT
             value: {{ .Values.nexus.webcontext }}
