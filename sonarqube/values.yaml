@@ -59,7 +59,12 @@ regex:
 
 pvc:
   enabled: true
-  accessMode: ReadWriteMany
+  sqDataName: data
+  sqLogsName: logs
+  sqConfName: conf
+  sqExtensionsName: extensions
+  pgName: current
+  pgDataName: data
 
 persistance:
   enabled: true
