@@ -40,8 +40,6 @@ db:
   name: sonar
   credentials:
     secret: "pg-credentials"
-    username: "username"
-    password: "password"
 
 env:
 #  - name: env-name-1

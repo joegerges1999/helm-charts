@@ -73,11 +73,11 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.db.credentials.secret }}
-                key: {{ .Values.db.credentials.username }}
+                key: username
           - name: POSTGRES_PASSWORD
               secretKeyRef:
                 name: {{ .Values.db.credentials.secret }}
-                key: {{ .Values.db.credentials.password }}
+                key: password
           {{- if .Values.persistance.enabled }}
           volumeMounts:
           - mountPath: /var/lib/postgresql
