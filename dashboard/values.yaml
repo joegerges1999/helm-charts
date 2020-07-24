@@ -35,6 +35,7 @@ probes:
 service:
   enabled: true
   port: 5000
+  type: LoadBalancer
 
 ingress:
   enabled: true

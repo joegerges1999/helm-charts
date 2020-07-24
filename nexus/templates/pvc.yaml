@@ -1,3 +1,4 @@
+{{- if .Values.persistance.enabled -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -7,7 +8,8 @@ metadata:
   name: {{ .Values.team }}-nexus-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+    -  {{ .Values.persistance.accessModes }}
   resources:
     requests:
-      storage: 2Gi
+      storage: {{ .Values.persistance.storage }}
+{{- end }}

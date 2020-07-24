@@ -43,6 +43,12 @@ ingress:
 service:
   enabled: true
   port: 9090
+  type: LoadBalancer
 
 deployment:
   enabled: true
+
+persistance:
+  enabled: true
+  accessModes: ReadWriteMany
+  storage: 5Gi

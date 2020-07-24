@@ -43,6 +43,7 @@ spec:
           env:
           - name: FNREL
             value: {{ .Values.release | quote }}
+      {{- if .Values.persistance.enabled }}
           volumeMounts:
           - mountPath: /opt/fitnesse/FitNesseRoot
             name: fitnesse-data
@@ -50,4 +51,5 @@ spec:
       - name: fitnesse-data
         persistentVolumeClaim:
           claimName: {{ .Values.team }}-{{ .Values.app }}-pvc
+      {{- end }}
 {{- end }}

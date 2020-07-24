@@ -37,12 +37,18 @@ probes:
     periodSeconds: 30
     failureThreshold: 6
 
+persistance:
+  enabled: true
+  accessModes: ReadWriteMany
+  storage: 5Gi
+
 ingress:
   enabled: true
 
 service:
   enabled: true
   port: 8081
+  type: LoadBalancer
 
 deployment:
   enabled: true
