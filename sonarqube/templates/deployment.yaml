@@ -124,11 +124,17 @@ spec:
           {{- end }}
           env:
           - name: SONARQUBE_JDBC_USERNAME
-            value: {{ .Values.db.user }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.db.credentials.secret }}
+                key: username
           - name: SONARQUBE_JDBC_URL
             value: jdbc:postgresql://localhost:{{ .Values.db.port }}/{{ .Values.db.name }} 
           - name: SONARQUBE_JDBC_PASSWORD
-            value: {{ .Values.db.password }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.db.credentials.secret }}
+                key: password
           - name: sonar.web.context
             value: /{{ .Values.sonarqube.webcontext }}
           {{- if .Values.sonarqube.proxy.enabled }}
