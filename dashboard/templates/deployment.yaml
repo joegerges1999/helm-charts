@@ -24,13 +24,15 @@ spec:
       containers:
         - name: dashboard
           image: {{ .Values.dockerRegistry }}{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
+          {{- if .Values.cappedRequests.enabled }}
           resources:
             requests:
-              cpu: {{ .Values.requests.cpu }}
-              memory: {{ .Values.requests.memory }}
+              cpu: {{ .Values.cappedRequests.requests.cpu }}
+              memory: {{ .Values.cappedRequests.requests.memory }}
             limits:
-              cpu: {{ .Values.limits.cpu }}
-              memory: {{ .Values.limits.memory }}
+              cpu: {{ .Values.cappedRequests.limits.cpu }}
+              memory: {{ .Values.cappedRequests.limits.memory }}
+          {{- end }}
               {{- if .Values.probes.enabled }}
           livenessProbe:
             httpGet:

@@ -1,3 +1,5 @@
+replicaCount: 1
+
 team: jgerges
 
 hostname: "jgerges"
@@ -6,15 +8,14 @@ imagePullSecrets: "docker-all"
 
 dockerRegistry: "docker-all.nexus.murex.com/"
 
-replicaCount: 1
-
-requests:
-  cpu: 125m
-  memory: 1024Mi
-
-limits:
-  cpu: 125m
-  memory: 1024Mi
+cappedRequests:
+  enabled: false
+  requests:
+    cpu: 125m
+    memory: 1024Mi
+  limits:
+    cpu: 125m
+    memory: 1024Mi
 
 dashboard:
   image: 

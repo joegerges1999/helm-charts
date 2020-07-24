@@ -25,6 +25,15 @@ spec:
           image: {{ .Values.dockerRegistry }}{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
           ports:
           - containerPort: {{ .Values.fitnesse.port }}
+          {{- if .Values.cappedRequests.enabled }}
+          resources:
+            requests:
+              cpu: {{ .Values.cappedRequests.requests.cpu }}
+              memory: {{ .Values.cappedRequests.requests.memory }}
+            limits:
+              cpu: {{ .Values.cappedRequests.limits.cpu }}
+              memory: {{ .Values.cappedRequests.limits.memory }}
+          {{- end }}
           {{- if .Values.probes.enabled }}
           livenessProbe:
             httpGet:
@@ -40,9 +49,6 @@ spec:
             periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
             failureThreshold: {{ .Values.probes.readinessProbe.failureThreshold }}
           {{- end }}
-          env:
-          - name: FNREL
-            value: {{ .Values.release | quote }}
       {{- if .Values.persistance.enabled }}
           volumeMounts:
           - mountPath: /opt/fitnesse/FitNesseRoot

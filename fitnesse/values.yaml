@@ -10,13 +10,14 @@ dockerRegistry: "docker-all.nexus.murex.com/"
 
 app: fitnesse
 
-requests:
-  cpu: 500m
-  memory: 1024Mi
-
-limits:
-  cpu: 2000m
-  memory: 2048Mi
+cappedRequests:
+  enabled: false
+  requests:
+    cpu: 500m
+    memory: 1024Mi
+  limits:
+    cpu: 2000m
+    memory: 2048Mi
 
 fitnesse:
   image:
@@ -35,8 +36,6 @@ probes:
     periodSeconds: 30
     failureThreshold: 6
     
-release: 20180127
-
 ingress:
   enabled: true
 
