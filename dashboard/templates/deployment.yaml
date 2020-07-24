@@ -35,13 +35,13 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.fitnesse.port }}
+              port: {{ .Values.dashboard.port }}
             initialDelaySeconds: {{ .Values.probes.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds }}
           readinessProbe:
             httpGet:
               path: /
-              port: {{ .Values.fitnesse.port }}
+              port: {{ .Values.dashboard.port }}
             initialDelaySeconds: {{ .Values.probes.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
             failureThreshold: {{ .Values.probes.readinessProbe.failureThreshold }}
