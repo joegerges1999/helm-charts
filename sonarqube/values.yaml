@@ -86,3 +86,15 @@ service:
 
 deployment:
   enabled: true
+
+probes:
+  enabled: true
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodsSeconds: 30
+  readinessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    failureThreshold: 6
+    
+  
