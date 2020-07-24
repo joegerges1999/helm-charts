@@ -23,7 +23,7 @@ spec:
       - name: {{ .Values.imagePullSecrets }}
       containers:
         - name: dashboard
-          image: {{ .Values.dockerRegistry }}/{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
+          image: {{ .Values.dockerRegistry }}{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
           resources:
             requests:
               cpu: {{ .Values.requests.cpu }}

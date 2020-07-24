@@ -4,7 +4,7 @@ hostname: "jgerges"
 
 imagePullSecrets: "docker-all"
 
-dockerRegistry: "docker-all.nexus.murex.com"
+dockerRegistry: "docker-all.nexus.murex.com/"
 
 replicaCount: 1
 

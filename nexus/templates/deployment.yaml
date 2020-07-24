@@ -22,7 +22,7 @@ spec:
       - name: {{ .Values.imagePullSecrets }}
       containers:
         - name: nexus
-          image: {{ .Values.dockerRegistry }}/{{ .Values.nexus.image.name }}:{{ .Values.nexus.image.tag }}
+          image: {{ .Values.dockerRegistry }}{{ .Values.nexus.image.name }}:{{ .Values.nexus.image.tag }}
           ports:
           - containerPort: {{ .Values.nexus.port }}
             protocol: TCP
