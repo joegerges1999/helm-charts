@@ -132,21 +132,21 @@ spec:
       volumes:
       - name: sonar-data
         persistentVolumeClaim:
-          claimName: {{ .Values.team }}-sq-{{ .Values.pvc.sqDataName }}-pvc #sonarqube-data-pvc
+          claimName: sq-{{ .Values.pvc.sqDataName }}-pvc #sonarqube-data-pvc
       - name: sonar-extensions
         persistentVolumeClaim:
-          claimName: {{ .Values.team }}-sq-{{ .Values.pvc.sqExtensionsName }}-pvc #sonarqube-extensions-pvc
+          claimName: sq-{{ .Values.pvc.sqExtensionsName }}-pvc #sonarqube-extensions-pvc
       - name: sonar-conf
         persistentVolumeClaim:
-          claimName: {{ .Values.team }}-sq-{{ .Values.pvc.sqConfName }}-pvc #sonarqube-conf-pvc
+          claimName: sq-{{ .Values.pvc.sqConfName }}-pvc #sonarqube-conf-pvc
       - name: sonar-logs
         persistentVolumeClaim:
-          claimName: {{ .Values.team }}-sq-{{ .Values.pvc.sqLogsName }}-pvc #sonarqube-logs-pvc
+          claimName: sq-{{ .Values.pvc.sqLogsName }}-pvc #sonarqube-logs-pvc
       - name: postgresql
         persistentVolumeClaim:
-          claimName: {{ .Values.team }}-pg-{{ .Values.pvc.pgName }}-pvc #sonarqube-postgresql-pvc
+          claimName: sq-pg-{{ .Values.pvc.pgName }}-pvc #sonarqube-postgresql-pvc
       - name: postgresql-data
         persistentVolumeClaim:
-          claimName: {{ .Values.team }}-pg-{{ .Values.pvc.pgDataName }}-pvc #sonarqube-postgresql-data-pvc
+          claimName: sq-pg-{{ .Values.pvc.pgDataName }}-pvc #sonarqube-postgresql-data-pvc
       {{- end }}
 {{- end }}
