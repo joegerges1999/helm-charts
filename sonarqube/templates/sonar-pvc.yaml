@@ -48,7 +48,7 @@ metadata:
   labels:
     app: sonarqube
     team: {{ .Values.team }}
-  name: {{ .Values.team }}-sq-{{ .Values.sqConfName }}-pvc #sonarqube-conf-pvc
+  name: {{ .Values.team }}-sq-{{ .Values.pvc.sqConfName }}-pvc #sonarqube-conf-pvc
 spec:
   accessModes:
     - {{ .Values.persistance.accessMode }}
