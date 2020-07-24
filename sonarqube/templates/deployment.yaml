@@ -70,9 +70,14 @@ spec:
           - name: DB_NAME
             value: {{ .Values.db.name }}
           - name: POSTGRES_USER
-            value: {{ .Values.db.user }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.db.credentials.secret }}
+                key: {{ .Values.db.credentials.username }}
           - name: POSTGRES_PASSWORD
-            value: {{ .Values.db.password }}
+              secretKeyRef:
+                name: {{ .Values.db.credentials.secret }}
+                key: {{ .Values.db.credentials.password }}
           {{- if .Values.persistance.enabled }}
           volumeMounts:
           - mountPath: /var/lib/postgresql

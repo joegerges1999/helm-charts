@@ -38,8 +38,10 @@ db:
     tag: latest
   port: 5432
   name: sonar
-  user: sonar
-  password: sonar
+  credentials:
+    secret: "pg-credentials"
+    username: "username"
+    password: "password"
 
 env:
 #  - name: env-name-1
