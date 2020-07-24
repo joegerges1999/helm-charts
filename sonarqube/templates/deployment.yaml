@@ -73,11 +73,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.db.credentials.secret }}
-                key: username
+                key: {{ .Values.db.credentials.usernameKey }}
           - name: POSTGRES_PASSWORD
+            valueFrom:
               secretKeyRef:
                 name: {{ .Values.db.credentials.secret }}
-                key: password
+                key: {{ .Values.db.credentials.passwordKey }}
           {{- if .Values.persistance.enabled }}
           volumeMounts:
           - mountPath: /var/lib/postgresql
@@ -129,12 +130,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.db.credentials.secret }}
-                key: username 
+                key: {{ .Values.db.credentials.usernameKey }} 
           - name: SONARQUBE_JDBC_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.db.credentials.secret }}
-                key: password
+                key: {{ .Values.db.credentials.passwordKey }}
           - name: sonar.web.context
             value: /{{ .Values.sonarqube.webcontext }}
           {{- if .Values.sonarqube.proxy.enabled }}
