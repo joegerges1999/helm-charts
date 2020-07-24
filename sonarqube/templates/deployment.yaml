@@ -123,13 +123,13 @@ spec:
             name: sonar-conf
           {{- end }}
           env:
+          - name: SONARQUBE_JDBC_URL
+            value: jdbc:postgresql://localhost:{{ .Values.db.port }}/{{ .Values.db.name }}
           - name: SONARQUBE_JDBC_USERNAME
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.db.credentials.secret }}
-                key: username
-          - name: SONARQUBE_JDBC_URL
-            value: jdbc:postgresql://localhost:{{ .Values.db.port }}/{{ .Values.db.name }} 
+                key: username 
           - name: SONARQUBE_JDBC_PASSWORD
             valueFrom:
               secretKeyRef:
