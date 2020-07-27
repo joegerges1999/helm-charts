@@ -20,6 +20,18 @@ spec:
     spec:
       imagePullSecrets:
       - name: {{ .Values.imagePullSecrets }}
+      ###############################################
+      initContainers:
+        - name: plugins-properties
+          image: {{ .Values.dockerRegistry }}busybox
+          command:
+          - sh
+          - -c 
+          - touch plugins.extra.properties && touch second.plugins.touch > /opt/fitnesse
+          volumeMounts:
+          - mountPath: /opt/fitnesse
+            name: fitnesse-properties            
+        ##############################################
       containers:
         - name: fitnesse
           image: {{ .Values.dockerRegistry }}{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
@@ -56,6 +68,9 @@ spec:
       volumes:
       - name: fitnesse-data
         persistentVolumeClaim:
-          claimName: {{ .Values.team }}-{{ .Values.app }}-pvc
+          claimName: {{ .Values.team }}-{{ .Values.app }}-data-pvc
+      - name: fitnesse-properties
+        persistentVolumeClaim:
+          claimName: {{ .Values.team }}-{{ .Values.app }}-conf-pvc
       {{- end }}
 {{- end }}

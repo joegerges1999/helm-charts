@@ -12,4 +12,18 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistance.storage }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: {{ .Values.app }}
+    team: {{ .Values.team }}
+  name: {{ .Values.team }}-{{ .Values.app }}-conf-pvc
+spec:
+  accessModes:
+    - {{ .Values.persistance.accessModes }}
+  resources:
+    requests:
+      storage: {{ .Values.persistance.storage }}
 {{- end }}
