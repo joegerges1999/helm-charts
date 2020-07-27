@@ -30,7 +30,7 @@ spec:
           - echo "hello" > plugins.props && echo "hey" > /opt/fitnesse/plugins.props && chmod -R 777 /opt/fitnesse
           volumeMounts:
           - mountPath: /opt/fitnesse
-            name: fitnesse-properties            
+            name: fitnesse-data            
         ##############################################
       containers:
         - name: fitnesse
@@ -63,16 +63,11 @@ spec:
           {{- end }}
       {{- if .Values.persistance.enabled }}
           volumeMounts:
-          - mountPath: /opt/fitnesse/FitNesseRoot
-            name: fitnesse-data
           - mountPath: /opt/fitnesse
-            name: fitnesse-properties
+            name: fitnesse-data
       volumes:
       - name: fitnesse-data
         persistentVolumeClaim:
           claimName: {{ .Values.team }}-{{ .Values.app }}-data-pvc
-      - name: fitnesse-properties
-        persistentVolumeClaim:
-          claimName: {{ .Values.team }}-{{ .Values.app }}-conf-pvc
       {{- end }}
 {{- end }}
