@@ -1,5 +1,4 @@
 FROM openjdk:8-jre-alpine
-MAINTAINER Maikel Dollé <maikel@itmagix.nl>
 RUN adduser -D -u 666 fitnesse
 ARG release=20180127
 ENV FNREL=$release
