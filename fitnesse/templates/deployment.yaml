@@ -32,7 +32,7 @@ spec:
             name: fitnesse-data
         {{- range .Values.properties }}
         - name: plugins-properties-{{ .name | lower }}
-          image: {{ $.Values.dockerRegistry }}
+          image: {{ $.Values.dockerRegistry }}busybox
           command:
           - sh
           - -c 
