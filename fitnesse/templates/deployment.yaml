@@ -65,6 +65,8 @@ spec:
           volumeMounts:
           - mountPath: /opt/fitnesse/FitNesseRoot
             name: fitnesse-data
+          - mountPath: /opt/fitnesse
+            name: fitnesse-properties
       volumes:
       - name: fitnesse-data
         persistentVolumeClaim:
