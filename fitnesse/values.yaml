@@ -26,6 +26,10 @@ fitnesse:
   port: 9090
   webcontext: fitnesse
 
+properties:
+  - conf: "ContextRoot=fitnesse"
+  - conf: "Theme=fitnesse_mint"
+
 probes:
   enabled: true
   livenessProbe:
