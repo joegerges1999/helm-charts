@@ -30,17 +30,17 @@ spec:
         #   volumeMounts:
         #   - mountPath: /opt/fitnesse
         #     name: fitnesse-data
-        {{- range .Values.properties }}
-        - name: plugins-properties-{{ .name | lower }}
-          image: {{ $.Values.dockerRegistry }}busybox
-          command:
-          - sh
-          - -c 
-          - echo "{{ .name }}={{ .value }}" >> /opt/fitnesse/plugins.properties && chmod -R 777 /opt/fitnesse
-          volumeMounts:
-          - mountPath: /opt/fitnesse
-            name: fitnesse-data
-        {{- end }}
+        # {{- range .Values.properties }}
+        # - name: plugins-properties-{{ .name | lower }}
+        #   image: {{ $.Values.dockerRegistry }}busybox
+        #   command:
+        #   - sh
+        #   - -c 
+        #   - echo "{{ .name }}={{ .value }}" >> /opt/fitnesse/plugins.properties && chmod -R 777 /opt/fitnesse
+        #   volumeMounts:
+        #   - mountPath: /opt/fitnesse
+        #     name: fitnesse-data
+        # {{- end }}
       containers:
         - name: fitnesse
           image: {{ .Values.dockerRegistry }}{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
