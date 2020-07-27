@@ -5,7 +5,7 @@ metadata:
   labels:
     app: {{ .Values.app }}
     team: {{ .Values.team }}
-  name: {{ .Values.team }}-{{ .Values.app }}-pvc
+  name: {{ .Values.team }}-{{ .Values.app }}-data-pvc
 spec:
   accessModes:
     - {{ .Values.persistance.accessModes }}
