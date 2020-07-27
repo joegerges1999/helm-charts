@@ -18,27 +18,30 @@ spec:
         app: {{ .Values.app }}
         team: {{ .Values.team }}
     spec:
-        imagePullSecrets:
-        - name: {{ .Values.imagePullSecrets }}
-        initContainers:
-        - name: getting-jar-file
-          image: {{ .Values.dockerRegistry }}busybox
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecrets }}
+      initContainers:
+        - name: fetching-jar
+          image: {{ .Values.dockerRegistry }}
           command:
           - sh
-          - -c 
+          - -c
           - export RELEASE=20180127 && busybox wget -O "/opt/fitnesse/fitnesse-standalone.jar" "http://www.fitnesse.org/fitnesse-standalone.jar?responder=releaseDownload&release=$RELEASE" && chmod -R 777 /opt/fitnesse
           volumeMounts:
           - mountPath: /opt/fitnesse
             name: fitnesse-data
         {{- range .Values.properties }}
         - name: plugins-properties
-          image: {{ $.Values.dockerRegistry }}busybox
+          image: {{ $.Values.dockerRegistry }}
           command:
           - sh
-          - -c
-          - echo .conf >> /opt/fitnesse/plugins.properties
-        {{- end }}           
-        containers:
+          - -c 
+          - echo {{ .conf }} >> /opt/fitnesse/plugins.properties
+          volumeMounts:
+          - mountPath: /opt/fitnesse
+            name: fitnesse-data
+        {{- end }}
+      containers:
         - name: fitnesse
           image: {{ .Values.dockerRegistry }}{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
           ports:
