@@ -29,8 +29,8 @@ fitnesse:
 properties:
   - name: "ContextRoot"
     value: "fitnesse"
-  - name: "Theme"
-    value: "fitnesse_mint"
+  #- name: "Theme"
+  #  value: "fitnesse_mint"
 
 probes:
   enabled: true
