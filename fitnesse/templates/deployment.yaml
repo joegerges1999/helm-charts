@@ -32,45 +32,45 @@ spec:
             name: fitnesse-data
         {{- range .Values.properties }}
         - name: plugins-properties
-          image: {{ .Values.dockerRegistry }}busybox
+          image: {{ $.Values.dockerRegistry }}busybox
           command:
           - sh
           - -c
           - echo .conf >> /opt/fitnesse/plugins.properties
         {{- end }}           
         containers:
-          - name: fitnesse
-            image: {{ .Values.dockerRegistry }}{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
-            ports:
-            - containerPort: {{ .Values.fitnesse.port }}
-            {{- if .Values.cappedRequests.enabled }}
-            resources:
-              requests:
-                cpu: {{ .Values.cappedRequests.requests.cpu }}
-                memory: {{ .Values.cappedRequests.requests.memory }}
-              limits:
-                cpu: {{ .Values.cappedRequests.limits.cpu }}
-                memory: {{ .Values.cappedRequests.limits.memory }}
-            {{- end }}
-            {{- if .Values.probes.enabled }}
-            livenessProbe:
-              httpGet:
-                path: /{{ .Values.fitnesse.webcontext }}
-                port: {{ .Values.fitnesse.port }}
-              initialDelaySeconds: {{ .Values.probes.livenessProbe.initialDelaySeconds }}
-              periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds }}
-            readinessProbe:
-              httpGet:
-                path: /{{ .Values.fitnesse.webcontext }}
-                port: {{ .Values.fitnesse.port }}
-              initialDelaySeconds: {{ .Values.probes.readinessProbe.initialDelaySeconds }}
-              periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
-              failureThreshold: {{ .Values.probes.readinessProbe.failureThreshold }}
-            {{- end }}
-        {{- if .Values.persistance.enabled }}
-            volumeMounts:
-            - mountPath: /opt/fitnesse
-              name: fitnesse-data
+        - name: fitnesse
+          image: {{ .Values.dockerRegistry }}{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
+          ports:
+          - containerPort: {{ .Values.fitnesse.port }}
+          {{- if .Values.cappedRequests.enabled }}
+          resources:
+            requests:
+              cpu: {{ .Values.cappedRequests.requests.cpu }}
+              memory: {{ .Values.cappedRequests.requests.memory }}
+            limits:
+              cpu: {{ .Values.cappedRequests.limits.cpu }}
+              memory: {{ .Values.cappedRequests.limits.memory }}
+          {{- end }}
+          {{- if .Values.probes.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /{{ .Values.fitnesse.webcontext }}
+              port: {{ .Values.fitnesse.port }}
+            initialDelaySeconds: {{ .Values.probes.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds }}
+          readinessProbe:
+            httpGet:
+              path: /{{ .Values.fitnesse.webcontext }}
+              port: {{ .Values.fitnesse.port }}
+            initialDelaySeconds: {{ .Values.probes.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.probes.readinessProbe.failureThreshold }}
+          {{- end }}
+      {{- if .Values.persistance.enabled }}
+          volumeMounts:
+          - mountPath: /opt/fitnesse
+            name: fitnesse-data
       volumes:
       - name: fitnesse-data
         persistentVolumeClaim:
