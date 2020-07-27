@@ -27,7 +27,7 @@ spec:
           command:
           - sh
           - -c 
-          - touch plugins.extra.properties && touch second.plugins.touch > /opt/fitnesse
+          - echo "hello" > plugins.props && echo "hey" > /opt/fitnesse/plugins.props
           volumeMounts:
           - mountPath: /opt/fitnesse
             name: fitnesse-properties            
