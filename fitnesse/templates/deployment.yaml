@@ -22,7 +22,7 @@ spec:
       - name: {{ .Values.imagePullSecrets }}
       initContainers:
         - name: fetching-jar
-          image: {{ .Values.dockerRegistry }}
+          image: {{ .Values.dockerRegistry }}busybox
           command:
           - sh
           - -c
