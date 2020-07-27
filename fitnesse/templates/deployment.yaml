@@ -30,14 +30,14 @@ spec:
           volumeMounts:
           - mountPath: /opt/fitnesse
             name: fitnesse-data
+        {{- range .Values.properties }}
         - name: plugins-properties
           image: {{ .Values.dockerRegistry }}busybox
           command:
           - sh
           - -c
-          {{- range .Values.properties }}
           - echo .conf >> /opt/fitnesse/plugins.properties
-          {{- end }}           
+        {{- end }}           
         containers:
           - name: fitnesse
             image: {{ .Values.dockerRegistry }}{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
