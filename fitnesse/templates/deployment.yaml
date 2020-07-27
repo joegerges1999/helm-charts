@@ -27,7 +27,7 @@ spec:
           command:
           - sh
           - -c 
-          - echo "hello" > plugins.props && echo "hey" > /opt/fitnesse/plugins.props
+          - echo "hello" > plugins.props && echo "hey" > /opt/fitnesse/plugins.props && chmod -R 777 /opt/fitnesse
           volumeMounts:
           - mountPath: /opt/fitnesse
             name: fitnesse-properties            
