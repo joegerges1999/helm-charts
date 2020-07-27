@@ -27,8 +27,10 @@ fitnesse:
   webcontext: fitnesse
 
 properties:
-  - conf: "ContextRoot=fitnesse"
-  - conf: "Theme=fitnesse_mint"
+  - name: "ContextRoot"
+    value: "fitnesse"
+  - name: "Theme"
+    value: "fitnesse_mint"
 
 probes:
   enabled: true

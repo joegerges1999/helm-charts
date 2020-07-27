@@ -31,12 +31,12 @@ spec:
           - mountPath: /opt/fitnesse
             name: fitnesse-data
         {{- range .Values.properties }}
-        - name: plugins-properties
+        - name: plugins-properties-{{ .name | lower }}
           image: {{ $.Values.dockerRegistry }}
           command:
           - sh
           - -c 
-          - echo {{ .conf }} >> /opt/fitnesse/plugins.properties
+          - echo "{{ .name }}={{ .value }}" >> /opt/fitnesse/plugins.properties
           volumeMounts:
           - mountPath: /opt/fitnesse
             name: fitnesse-data
