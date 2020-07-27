@@ -21,22 +21,22 @@ spec:
       imagePullSecrets:
       - name: {{ .Values.imagePullSecrets }}
       initContainers:
-        - name: fetching-jar
-          image: {{ .Values.dockerRegistry }}busybox
-          command:
-          - sh
-          - -c
-          - export RELEASE=20180127 && busybox wget -O "/opt/fitnesse/fitnesse-standalone.jar" "http://www.fitnesse.org/fitnesse-standalone.jar?responder=releaseDownload&release=$RELEASE" && chmod -R 777 /opt/fitnesse
-          volumeMounts:
-          - mountPath: /opt/fitnesse
-            name: fitnesse-data
+        # - name: fetching-jar
+        #   image: {{ .Values.dockerRegistry }}busybox
+        #   command:
+        #   - sh
+        #   - -c
+        #   - export RELEASE=20180127 && busybox wget -O "/opt/fitnesse/fitnesse-standalone.jar" "http://www.fitnesse.org/fitnesse-standalone.jar?responder=releaseDownload&release=$RELEASE" && chmod -R 777 /opt/fitnesse
+        #   volumeMounts:
+        #   - mountPath: /opt/fitnesse
+        #     name: fitnesse-data
         {{- range .Values.properties }}
         - name: plugins-properties-{{ .name | lower }}
           image: {{ $.Values.dockerRegistry }}busybox
           command:
           - sh
           - -c 
-          - echo "{{ .name }}={{ .value }}" >> /opt/fitnesse/plugins.properties
+          - echo "{{ .name }}={{ .value }}" >> /opt/fitnesse/plugins.properties && chmod -R 777 /opt/fitnesse
           volumeMounts:
           - mountPath: /opt/fitnesse
             name: fitnesse-data
