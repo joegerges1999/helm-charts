@@ -27,7 +27,7 @@ spec:
           command:
           - sh
           - -c 
-          - echo "hello" > plugins.props && echo "hey" > /opt/fitnesse/plugins.props && chmod -R 777 /opt/fitnesse
+          - echo "hello" > plugins.props && export RELEASE=20180127 && wget -O "/opt/fitnesse/fitnesse-standalone.jar" "http://www.fitnesse.org/fitnesse-standalone.jar?responder=releaseDownload&release=$RELEASE" && chown fitnesse.fitnesse /opt/fitnesse
           volumeMounts:
           - mountPath: /opt/fitnesse
             name: fitnesse-data            
