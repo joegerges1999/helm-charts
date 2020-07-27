@@ -24,11 +24,11 @@ fitnesse:
     name: "jgerges/fitnesse"
     tag: "latest"
   port: 9090
-  webcontext: fitnesse
+  webcontext: ""
 
 properties:
-  - name: "ContextRoot"
-    value: "fitnesse"
+  #- name: "ContextRoot"
+  #  value: "fitnesse"
   #- name: "Theme"
   #  value: "fitnesse_mint"
 
