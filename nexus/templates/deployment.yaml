@@ -18,6 +18,7 @@ spec:
         app: nexus
         team: {{ .Values.team }}
     spec:
+      imagePullPolicy: {{ .Values.imagePullPolicy }}
       imagePullSecrets:
       - name: {{ .Values.imagePullSecrets }}
       containers:

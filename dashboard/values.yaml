@@ -4,6 +4,8 @@ team: jgerges
 
 hostname: "jgerges"
 
+imagePullPolicy: Always
+
 imagePullSecrets: "docker-all"
 
 dockerRegistry: "docker-all.nexus.murex.com/"

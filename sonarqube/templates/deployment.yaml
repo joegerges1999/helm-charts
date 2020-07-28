@@ -18,6 +18,7 @@ spec:
         app: sonarqube
         team: {{ .Values.team }}
     spec:
+      imagePullPolicy: {{ .Values.imagePullPolicy }}
       imagePullSecrets:
       - name: {{ .Values.imagePullSecrets }}
       terminationGracePeriodSeconds: 15
