@@ -6,6 +6,8 @@ hostname: "jgerges"
 
 imagePullSecrets: "docker-all"
 
+imagePullPolicy: "Always"
+
 dockerRegistry: "docker-all.nexus.murex.com/"
 
 app: fitnesse
