@@ -24,7 +24,7 @@ cappedRequests:
 fitnesse:
   image:
     name: "jgerges/fitnesse"
-    tag: "latest"
+    tag: "0.0.1"
   port: 9090
   webcontext: ""
 
