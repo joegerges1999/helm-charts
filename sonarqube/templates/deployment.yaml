@@ -18,8 +18,8 @@ spec:
         app: sonarqube
         team: {{ .Values.team }}
     spec:
-      #imagePullSecrets:
-      #- name: {{ .Values.imagePullSecrets }}
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecrets }}
       terminationGracePeriodSeconds: 15
       initContainers:
       - name: sysctl
