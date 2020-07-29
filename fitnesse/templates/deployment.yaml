@@ -28,6 +28,9 @@ spec:
           - sh
           - -c 
           - echo "ContextRoot={{ .Values.fitnesse.webcontext }}" >> /opt/fitnesse/plugins.properties
+          volumeMounts:
+            - mountPath: /opt/fitnesse
+              name: fitnesse-data
         {{- range .Values.properties }}
         - name: plugins-properties-{{ .name | lower }}
           image: {{ $.Values.dockerRegistry }}busybox
