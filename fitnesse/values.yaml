@@ -1,8 +1,8 @@
 replicaCount: 1
 
-team: jgerges
+team: test
 
-hostname: "jgerges"
+hostname: "istestkubmaster1.fr.murex.com"
 
 imagePullSecrets: "docker-all"
 
