@@ -22,6 +22,7 @@ spec:
       imagePullSecrets:
       - name: {{ .Values.imagePullSecrets }}
       initContainers:
+        {{- if .Values.persistance.enabled }}
         - name: setting-web-context
           image: {{ .Values.dockerRegistry }}busybox
           command:
@@ -41,6 +42,7 @@ spec:
           volumeMounts:
           - mountPath: /opt/fitnesse
             name: fitnesse-data
+        {{- end }}
         {{- end }}
       containers:
         - name: fitnesse
