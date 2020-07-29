@@ -18,7 +18,6 @@ spec:
         app: {{ .Values.app }}
         team: {{ .Values.team }}
     spec:
-      imagePullPolicy: {{ .Values.imagePullPolicy }}
       imagePullSecrets:
       - name: {{ .Values.imagePullSecrets }}
       initContainers:
@@ -47,6 +46,7 @@ spec:
       containers:
         - name: fitnesse
           image: {{ .Values.dockerRegistry }}{{ .Values.fitnesse.image.name }}:{{ .Values.fitnesse.image.tag }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           ports:
           - containerPort: {{ .Values.fitnesse.port }}
           {{- if .Values.cappedRequests.enabled }}

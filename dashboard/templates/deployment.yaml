@@ -18,12 +18,12 @@ spec:
         app: dashboard
         team: {{ .Values.team }}
     spec:
-      imagePullPolicy: {{ .Values.imagePullPolicy }}
       imagePullSecrets:
       - name: {{ .Values.imagePullSecrets }}
       containers:
         - name: dashboard
           image: {{ .Values.dockerRegistry }}{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           {{- if .Values.cappedRequests.enabled }}
           resources:
             requests:
