@@ -89,6 +89,7 @@ spec:
           {{- end }}
         - name: sonarqube
           image: {{ .Values.dockerRegistry }}{{ .Values.sonarqube.image.name }}:{{ .Values.sonarqube.image.tag }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           {{- if .Values.cappedRequests.enabled }}
           resources:
             requests:
