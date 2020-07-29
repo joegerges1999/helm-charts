@@ -2,13 +2,13 @@ replicaCount: 1
 
 team: test
 
-hostname: "istestkubmaster1.fr.murex.com"
+hostname: "jgerges"
 
 imagePullPolicy: Always
 
-imagePullSecrets: "docker-all"
+imagePullSecrets: ""
 
-dockerRegistry: "docker-all.nexus.murex.com/"
+dockerRegistry: ""
 
 cappedRequests:
   enabled: false 
@@ -24,13 +24,7 @@ nexus:
     name: "sonatype/nexus3"
     tag: "latest"
   port: 8081
-  webcontext: ""
-
-env:
-  #  - name: env-name-1
-  #    value: env-value-1
-  #  - name: env-name-2
-  #    value: env-value-2
+  webcontext: "nexus"
 
 probes:
   enabled: true

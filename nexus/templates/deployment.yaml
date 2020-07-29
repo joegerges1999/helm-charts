@@ -54,6 +54,10 @@ spec:
           env:
           - name: NEXUS_CONTEXT
             value: {{ .Values.nexus.webcontext }}
+          {{- range .Values.env }}
+          - name: {{ .name }}
+            value: {{ .value | quote}}
+          {{- end }}
       {{- if .Values.persistance.enabled }}
           volumeMounts:
           - mountPath: /nexus-data
