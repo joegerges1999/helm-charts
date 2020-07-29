@@ -22,6 +22,12 @@ spec:
       imagePullSecrets:
       - name: {{ .Values.imagePullSecrets }}
       initContainers:
+        - name: setting-web-context
+          image: {{ .Values.dockerRegistry }}busybox
+          command:
+          - sh
+          - -c 
+          - echo "ContextRoot={{ .Values.fitnesse.webcontext }}" >> /opt/fitnesse/plugins.properties
         {{- range .Values.properties }}
         - name: plugins-properties-{{ .name | lower }}
           image: {{ $.Values.dockerRegistry }}busybox
