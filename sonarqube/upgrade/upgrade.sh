@@ -12,3 +12,4 @@ helm upgrade sonarqube . --set replicaCount='0',sonarqube.webcontext='sonar',son
 helm upgrade sonarqube . --set sonarqube.webcontext='sonar',sonarqube.image.tag='8.4.1-community',hostname='jgerges',dockerRegistry='',imagePullSecrets=''
 
 #call playbook that checks if the service is up and calls the upgrade api as soon as it is up
+ansible-playbook upgrade.yaml
