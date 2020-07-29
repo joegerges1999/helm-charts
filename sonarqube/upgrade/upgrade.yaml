@@ -31,7 +31,7 @@
         values:
             replicaCount: 0
 
-    - name: scaling back up
+    - name: scaling back up and enabling ingress
       helm:
         state: present
         name: sonarqube
@@ -47,5 +47,20 @@
             sonarqube:
                 image:
                     tag: 8.4.1-community
+
+    - name: waiting for the service to be up
+      uri:
+        url: http://istestkubmaster1.fr.murex.com/sonar/setup
+        status_code: 200
+      register: result
+      until: result.status == 200
+      retries: 5
+      delay: 30
+      
+    - name: upgrading database
+      uri:
+        url: http://istestkubmaster1/sonar/api/system/migrate_db
+        method: POST
+      
       
 
