@@ -3,7 +3,7 @@
   tasks:
     - name: waiting for the service to be up
       uri:
-        url: http://istestkubmaster1.fr.murex.com/sonar/setup
+        url: http://jgerges/sonar/setup
         status_code: 200
       register: result
       until: result.status == 200
@@ -12,7 +12,7 @@
       
     - name: upgrading database
       uri:
-        url: http://istestkubmaster1/sonar/api/system/migrate_db
+        url: http://jgerges/sonar/api/system/migrate_db
         method: POST
       
       
