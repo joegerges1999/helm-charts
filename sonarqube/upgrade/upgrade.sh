@@ -1,15 +1,16 @@
 #!/bin/sh
-
+upgrade_to=$1
+team=$2
 #removing ingress rules
-helm upgrade sonarqube . --set ingress.enabled='false',sonarqube.webcontext='sonar',sonarqube.image.tag='7.9.3-community',hostname='jgerges',dockerRegistry='',imagePullSecrets=''
+helm upgrade $team-sonarqube . -f myvals.yaml --set ingress.enabled='false'
 
 #exec in container and create dup
 
 #scale down to 0 to avoid conflicts and add ingress rules again
-helm upgrade sonarqube . --set replicaCount='0',sonarqube.webcontext='sonar',sonarqube.image.tag='8.4.1-community',hostname='jgerges',dockerRegistry='',imagePullSecrets=''
+helm upgrade $team-sonarqube . -f myvals.yaml --set replicaCount='0',ingress.enabled='false',sonarqube.image.tag='$upgrade_to'
 
-#scale back up
-helm upgrade sonarqube . --set sonarqube.webcontext='sonar',sonarqube.image.tag='8.4.1-community',hostname='jgerges',dockerRegistry='',imagePullSecrets=''
+#scale back up and enable ingress
+helm upgrade $team-sonarqube . -f myvals.yaml --set replicaCount='1',ingress.enabled='true',sonarqube.image.tag='$upgrade_to'
 
 #call playbook that checks if the service is up and calls the upgrade api as soon as it is up
 ansible-playbook upgrade.yaml
