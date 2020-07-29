@@ -1,9 +1,11 @@
 - hosts: 127.0.0.1
   connection: local
+  vars:
+    web_context: "{{ web_context }}"
   tasks:
     - name: waiting for the service to be up
       uri:
-        url: http://jgerges/sonar/setup
+        url: http://jgerges/{{ web_context }}/setup
         status_code: 200
       register: result
       until: result.status == 200
@@ -12,7 +14,7 @@
       
     - name: upgrading database
       uri:
-        url: http://jgerges/sonar/api/system/migrate_db
+        url: http://jgerges/{{ web_context }}/api/system/migrate_db
         method: POST
       
       
