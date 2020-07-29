@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sq-pg-{{ .Values.pvc.pgName }}-pvc
+  name: {{ .Values.team }}-sq-pg-{{ .Values.pvc.pgName }}-pvc
   labels:
     app: sonarqube
     team: {{ .Values.team }}
@@ -20,7 +20,7 @@ metadata:
     labels:
       app: sonarqube
       team: {{ .Values.team }}
-    name: sq-pg-{{ .Values.pvc.pgDataName }}-pvc 
+    name: {{ .Values.team }}-sq-pg-{{ .Values.pvc.pgDataName }}-pvc 
 spec:
     accessModes:
       - {{ .Values.persistance.accessMode }}

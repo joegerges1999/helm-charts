@@ -6,7 +6,7 @@ metadata:
   labels:
     app: sonarqube
     team: {{ .Values.team }}
-  name: sq-{{ .Values.pvc.sqDataName }}-pvc 
+  name: {{ .Values.team }}-sq-{{ .Values.pvc.sqDataName }}-pvc 
 spec:
   accessModes:
     - {{ .Values.persistance.accessMode }}
@@ -20,7 +20,7 @@ metadata:
     labels:
       app: sonarqube
       team: {{ .Values.team }}
-    name: sq-{{ .Values.pvc.sqExtensionsName }}-pvc 
+    name: {{ .Values.team }}-sq-{{ .Values.pvc.sqExtensionsName }}-pvc 
 spec:
   accessModes:
     - {{ .Values.persistance.accessMode }}
@@ -34,7 +34,7 @@ metadata:
   labels:
     app: sonarqube
     team: {{ .Values.team }}
-  name: sq-{{ .Values.pvc.sqLogsName }}-pvc 
+  name: {{ .Values.team }}-sq-{{ .Values.pvc.sqLogsName }}-pvc 
 spec:
   accessModes:
     - {{ .Values.persistance.accessMode }}
@@ -48,7 +48,7 @@ metadata:
   labels:
     app: sonarqube
     team: {{ .Values.team }}
-  name: sq-{{ .Values.pvc.sqConfName }}-pvc
+  name: {{ .Values.team }}-sq-{{ .Values.pvc.sqConfName }}-pvc
 spec:
   accessModes:
     - {{ .Values.persistance.accessMode }}

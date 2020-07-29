@@ -158,21 +158,21 @@ spec:
       volumes:
       - name: sonar-data
         persistentVolumeClaim:
-          claimName: sq-{{ .Values.pvc.sqDataName }}-pvc 
+          claimName: {{ .Values.team }}-sq-{{ .Values.pvc.sqDataName }}-pvc 
       - name: sonar-extensions
         persistentVolumeClaim:
-          claimName: sq-{{ .Values.pvc.sqExtensionsName }}-pvc 
+          claimName: {{ .Values.team }}-sq-{{ .Values.pvc.sqExtensionsName }}-pvc 
       - name: sonar-conf
         persistentVolumeClaim:
-          claimName: sq-{{ .Values.pvc.sqConfName }}-pvc 
+          claimName: {{ .Values.team }}-sq-{{ .Values.pvc.sqConfName }}-pvc 
       - name: sonar-logs
         persistentVolumeClaim:
-          claimName: sq-{{ .Values.pvc.sqLogsName }}-pvc 
+          claimName: {{ .Values.team }}-sq-{{ .Values.pvc.sqLogsName }}-pvc 
       - name: postgresql
         persistentVolumeClaim:
-          claimName: sq-pg-{{ .Values.pvc.pgName }}-pvc 
+          claimName: {{ .Values.team }}-sq-pg-{{ .Values.pvc.pgName }}-pvc 
       - name: postgresql-data
         persistentVolumeClaim:
-          claimName: sq-pg-{{ .Values.pvc.pgDataName }}-pvc 
+          claimName: {{ .Values.team }}-sq-pg-{{ .Values.pvc.pgDataName }}-pvc 
       {{- end }}
 {{- end }}
