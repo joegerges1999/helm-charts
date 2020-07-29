@@ -2,10 +2,11 @@
   connection: local
   vars:
     web_context: "{{ web_context }}"
+    hostname: "{{ hostname }}"
   tasks:
     - name: waiting for the service to be up
       uri:
-        url: http://jgerges/{{ web_context }}/setup
+        url: http://{{ hostname }}/{{ web_context }}/setup
         status_code: 200
       register: result
       until: result.status == 200
@@ -14,7 +15,7 @@
       
     - name: upgrading database
       uri:
-        url: http://jgerges/{{ web_context }}/api/system/migrate_db
+        url: http://{{ hostname }}/{{ web_context }}/api/system/migrate_db
         method: POST
       
       
