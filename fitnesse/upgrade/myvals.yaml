@@ -2,13 +2,13 @@ replicaCount: 1
 
 team: test
 
-hostname: "istestkubmaster1.fr.murex.com"
+hostname: "jgerges"
 
-imagePullSecrets: "docker-all"
+imagePullSecrets: ""
 
 imagePullPolicy: "Always"
 
-dockerRegistry: "docker-all.nexus.murex.com/"
+dockerRegistry: ""
 
 app: fitnesse
 
@@ -26,11 +26,11 @@ fitnesse:
     name: "jgerges/fitnesse"
     tag: "0.0.1"
   port: 9090
-  webcontext: ""
+  webcontext: "fitnesse"
 
 properties:
-  #- name: "Theme"
-  #  value: "fitnesse_mint"
+  - name: "Theme"
+    value: "fitnesse_mint"
 
 probes:
   enabled: true
