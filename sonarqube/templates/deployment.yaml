@@ -64,7 +64,6 @@ spec:
       containers:
         - name: sonardb
           image: {{ .Values.dockerRegistry }}{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}
-          imagePullPolicy: {{ .Values.imagePullPolicy }}
           ports:
           - containerPort: {{ .Values.db.port }}
           env:
