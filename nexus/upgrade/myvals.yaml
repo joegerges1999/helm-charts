@@ -6,7 +6,7 @@ hostname: "jgerges"
 
 imagePullPolicy: Always
 
-imagePullSecrets: ""
+imagePullSecrets: "docker-all"
 
 dockerRegistry: ""
 
