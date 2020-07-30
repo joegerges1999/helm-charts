@@ -1,6 +1,6 @@
 replicaCount: 1
 
-team: jgerges
+team: test
 
 hostname: "istestkubmaster1.fr.murex.com"
 

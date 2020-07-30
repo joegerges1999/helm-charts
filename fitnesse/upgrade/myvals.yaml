@@ -30,7 +30,7 @@ fitnesse:
 
 properties:
   - name: "Theme"
-    value: "fitnesse_mint"
+    value: "bootstrap"
 
 probes:
   enabled: true
