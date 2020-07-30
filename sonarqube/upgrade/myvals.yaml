@@ -1,14 +1,14 @@
 replicaCount: 1
 
-team: test
+team: jgerges
 
-hostname: "jgerges"
+hostname: "istestkubmaster1.fr.murex.com"
 
 imagePullPolicy: Always
 
 imagePullSecrets: "docker-all"
 
-dockerRegistry: ""
+dockerRegistry: "docker-all.nexus.murex.com/"
 
 cappedRequests:
   enabled: false

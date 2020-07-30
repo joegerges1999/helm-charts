@@ -2,13 +2,13 @@ replicaCount: 1
 
 team: test
 
-hostname: "jgerges"
+hostname: "istestkubmaster1.fr.murex.com"
 
 imagePullSecrets: "docker-all"
 
 imagePullPolicy: "Always"
 
-dockerRegistry: ""
+dockerRegistry: "docker-all.nexus.murex.com/"
 
 app: fitnesse
 
@@ -24,7 +24,7 @@ cappedRequests:
 fitnesse:
   image:
     name: "jgerges/fitnesse"
-    tag: "0.0.1"
+    tag: "1.0.0"
   port: 9090
   webcontext: "fitnesse"
 
