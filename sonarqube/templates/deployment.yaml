@@ -33,7 +33,7 @@ spec:
         command:
         - sh
         - -c
-        - chmod -R 777 /var/lib/postgresql /var/lib/postgresql/data /opt/sonarqube/extensions /opt/sonarqube/conf /opt/sonarqube/logs /opt/sonarqube/data && chown -R 999:999 /opt/sonarqube/data /opt/sonarqube/extensions /opt/sonarqube/logs /opt/sonarqube/conf
+        - chmod -R 777 /opt/sonarqube/extensions /opt/sonarqube/conf /opt/sonarqube/logs /opt/sonarqube/data && chown -R 999:999 /opt/sonarqube/data /opt/sonarqube/extensions /opt/sonarqube/logs /opt/sonarqube/conf
         securityContext:
           privileged: true
         volumeMounts:
@@ -45,10 +45,6 @@ spec:
           mountPath: /opt/sonarqube/conf
         - name: sonar-logs
           mountPath: /opt/sonarqube/logs
-        - name: postgresql
-          mountPath: /var/lib/postgresql
-        - name: postgresql-data
-          mountPath: /var/lib/postgresql/data
       {{- if .Values.disablePlugins }}
       {{- range .Values.regex }}
       {{- if regexMatch .version $.Values.sonarqube.image.tag }}
