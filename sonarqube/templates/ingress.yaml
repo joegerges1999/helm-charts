@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
     labels:
       app: sonarqube
+      team: {{ .Values.team }}
     name: {{ .Values.team }}-sonarqube-ingress   
 spec:
     rules:
