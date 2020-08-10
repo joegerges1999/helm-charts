@@ -1,0 +1,47 @@
+replicaCount: 1
+
+team: jgerges
+
+hostname: "istestkubmaster1.fr.murex.com"
+
+imagePullPolicy: Always
+
+imagePullSecrets: "docker-all"
+
+dockerRegistry: "docker-all.nexus.murex.com/"
+
+cappedRequests:
+  enabled: false
+  requests:
+    cpu: 125m
+    memory: 1024Mi
+  limits:
+    cpu: 125m
+    memory: 1024Mi
+
+dashboard:
+  image: 
+    name: jgerges/dashboard
+    tag: "2.0"
+  port: 5000
+
+probes:
+  enabled: true
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodsSeconds: 30
+  readinessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    failureThreshold: 6
+
+service:
+  enabled: true
+  port: 5000
+  type: LoadBalancer
+
+ingress:
+  enabled: true
+
+deployment:
+  enabled: true
